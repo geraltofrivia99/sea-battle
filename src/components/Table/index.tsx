@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as S from './styles';
 
+import { Field } from '../../service';
+
 export const Table = React.memo(() => {
+    
     const renderRows = () => {
       let rows = [];
       for (let i = 0; i < 10; i++) {
@@ -16,7 +19,7 @@ export const Table = React.memo(() => {
     return rows;
     }
     return (
-        <table id="simple-board">
+        <table id="user_field">
             <tbody>
                 {renderRows()}
             </tbody>
