@@ -1,4 +1,5 @@
-export class Ship {
+
+export class Ships {
   player: any;
   shipname: any;
   decks: any;

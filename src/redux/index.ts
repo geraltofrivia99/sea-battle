@@ -12,6 +12,7 @@ import {
   import { rootSaga } from './saga';
 
   import { initReducer } from './Initial/reducer';
+  import { fieldReducer } from './Field/reducer';
   
   const sagaMiddleware = createSagaMiddleware();
   

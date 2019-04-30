@@ -1,3 +1,5 @@
+import { Ships } from './ship';
+
 export class Field {
   fieldSide: any;
   shipSide: number;
