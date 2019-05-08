@@ -14,3 +14,8 @@ export const setMatrix = (matrix: any) => ({
   type: TYPES.SET_MATRIX,
   payload: { matrix }
 })
+
+export const addShip = (ship: any) => ({
+  type: TYPES.ADD_SHIP,
+  payload: { ship }
+}) 

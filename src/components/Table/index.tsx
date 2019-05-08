@@ -1,10 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
+import { connect } from 'react-redux';
 import * as S from './styles';
+import { randomLocationShip } from '../../redux/Field/actions';
+import { IState } from '../../redux/Field/reducer';
 
-import { Field } from '../../service';
+// import { Field } from '../../service';
 
-export const Table = React.memo(() => {
-    
+const TableComp = React.memo(({ randomLocationShip }: any) => {
+    const onClick = useCallback(() => { randomLocationShip() }, [])
     const renderRows = () => {
       let rows = [];
       for (let i = 0; i < 10; i++) {
@@ -19,18 +22,28 @@ export const Table = React.memo(() => {
     return rows;
     }
     return (
-        <table id="user_field">
+        <S.Table id="user_field" onClick={onClick}>
             <tbody>
                 {renderRows()}
             </tbody>
-        </table>
+        </S.Table>
     )
 });
 
 const Cell = React.memo(({ count, id }: { count: number, id: string }) => (
-  <td id={id}>{count}</td>
+  <S.Cell id={id}>{count}</S.Cell>
 ));
 
 const Row = React.memo(({ id, cell }: { id: string, cell: any }) => (
   <tr id={id}>{cell}</tr>
 ));
+
+const mapStateToProps = (state: IState) => ({
+  field: state.field
+})
+
+const mapDispatchToProps = {
+  randomLocationShip,
+}
+
+export const Table = connect(mapStateToProps, mapDispatchToProps)(TableComp);

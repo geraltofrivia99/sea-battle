@@ -18,7 +18,8 @@ import {
   
   
   const reducer = combineReducers({
-    init: initReducer
+    init: initReducer,
+    field: fieldReducer
   });
   
   const rootReducer = (state: any, action: any) => {

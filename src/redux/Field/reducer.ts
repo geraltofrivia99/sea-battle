@@ -10,7 +10,7 @@ interface IInitField {
     }
 }
 
-interface IState {
+export interface IState {
     fieldSide: any;
     shipSide: number | null;
     shipsData: any;
@@ -27,7 +27,7 @@ interface IState {
 const initState: IState = {
     fieldSide: 330,
     shipSide: 33,
-    shipsData:  [
+    shipsData: [
 		'',
 		[4, 'fourdeck'],
 		[3, 'tripledeck'],
@@ -56,12 +56,17 @@ const initalFieldAction = (state: IState, { field }: IInitField) => ({
 const setMatrix = (state: IState, { matrix }: any) => ({
     ...state,
     matrix
+});
+const addShip = (state: IState, { ship }: any) => ({
+    ...state,
+    squadron: [...state.squadron, ship]
 })
 
 
 const handlers = {
     [TYPES.INITIAL_FIELD]: initalFieldAction,
-    [TYPES.SET_MATRIX]: setMatrix
+    [TYPES.SET_MATRIX]: setMatrix,
+    [TYPES.ADD_SHIP]: addShip
   };
   
   export const fieldReducer = createReducer(initState, handlers);
