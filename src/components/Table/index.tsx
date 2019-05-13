@@ -26,17 +26,24 @@ const TableComp = React.memo(({ randomLocationShip }: any) => {
             <tbody>
                 {renderRows()}
             </tbody>
+
         </S.Table>
     )
 });
 
 const Cell = React.memo(({ count, id }: { count: number, id: string }) => (
-  <S.Cell id={id}>{count}</S.Cell>
+  <S.Cell id={id}></S.Cell>
 ));
 
 const Row = React.memo(({ id, cell }: { id: string, cell: any }) => (
   <tr id={id}>{cell}</tr>
 ));
+
+const Ship = React.memo(() => (
+  <S.Ship>
+    
+  </S.Ship>
+))
 
 const mapStateToProps = (state: IState) => ({
   field: state.field

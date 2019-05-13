@@ -1,6 +1,7 @@
 import { createReducer } from '../../utils/reducerHelper';
 import * as TYPES from './types';
 
+
 interface IInitField {
     field: {
         fieldX: any,
@@ -61,12 +62,27 @@ const addShip = (state: IState, { ship }: any) => ({
     ...state,
     squadron: [...state.squadron, ship]
 })
+const setDeckInMatrix = (state: IState, { coord }: any) => {
+    const { x, y } = coord;
+    const newMatrix = [...state.matrix]
+    newMatrix[x][y] = 1
+    return {
+        ...state,
+        matrix: newMatrix
+    }
+}
+const addShipToSquadron = (state: IState, { ship }: any) => ({
+    ...state,
+    squadron: [...state.squadron, ship]
+})
 
 
 const handlers = {
     [TYPES.INITIAL_FIELD]: initalFieldAction,
     [TYPES.SET_MATRIX]: setMatrix,
-    [TYPES.ADD_SHIP]: addShip
+    [TYPES.ADD_SHIP]: addShip,
+    [TYPES.SET_DECK_IN_MATRIX]: setDeckInMatrix,
+    [TYPES.ADD_SHIP_TO_SQUADRON]: addShipToSquadron
   };
   
   export const fieldReducer = createReducer(initState, handlers);

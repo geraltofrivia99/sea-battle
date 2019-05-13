@@ -1,5 +1,5 @@
 import {
-    takeLatest, put, select
+    takeLatest, put, select, call
 } from 'redux-saga/effects';
 
 import { createMatrix } from '../../utils';
@@ -7,6 +7,8 @@ import { createMatrix } from '../../utils';
 import * as TYPES from './types';
 import * as ACTIONS from './actions';
 import { IState } from './reducer';
+
+
 
 interface IFc {
     x: number;
@@ -34,7 +36,17 @@ function* randomLocationShip() {
             const fc = getCoordinatesDecks(decks, matrix);
             fc.decks = decks;
             fc.shipname = shipsData[i][1] + String(j + 1);
-            
+			const shipMatrix = yield call(createShip, fc)
+			yield put(ACTIONS.addToSquadron({
+				matrix: shipMatrix,
+				hits: 0,
+				decks,
+				kx: fc.kx,
+				ky: fc.ky,
+				shipname: fc.shipname,
+				x0: fc.x,
+				y0: fc.y
+			}))
         }
     }
 }
@@ -42,6 +54,17 @@ function* randomLocationShip() {
 export function* sagaField() {
     yield takeLatest(TYPES.INITIAL_FIELD, initialField);
     yield takeLatest(TYPES.RANDOM_LOC_SHIP_START, randomLocationShip);
+}
+
+function* createShip(fc: any) {
+	let k = 0;
+	let matrix = [];
+	while (k < fc.decks) {
+		yield put(ACTIONS.setDeckInMatrix({ x: fc.x + k * fc.kx, y: fc.y + k * fc.ky }));
+		matrix.push([fc.x + k * fc.kx, fc.y + k * fc.ky])
+		k++;
+	}
+	return matrix;
 }
 
 function getCoordinatesDecks(decks: number, matrix: any): IFc {

@@ -19,3 +19,13 @@ export const addShip = (ship: any) => ({
   type: TYPES.ADD_SHIP,
   payload: { ship }
 }) 
+
+export const setDeckInMatrix = (coord: any) => ({
+  type: TYPES.SET_DECK_IN_MATRIX,
+  payload: { coord }
+})
+
+export const addToSquadron = (ship: any) => ({
+  type: TYPES.ADD_SHIP_TO_SQUADRON,
+  payload: { ship }
+})
