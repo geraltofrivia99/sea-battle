@@ -6,7 +6,7 @@ import { IState } from '../../redux/Field/reducer';
 
 // import { Field } from '../../service';
 
-const TableComp = React.memo(({ randomLocationShip }: any) => {
+const TableComp = React.memo(({ randomLocationShip, squadron }: any) => {
     const onClick = useCallback(() => { randomLocationShip() }, [])
     const renderRows = () => {
       let rows = [];
@@ -22,12 +22,14 @@ const TableComp = React.memo(({ randomLocationShip }: any) => {
     return rows;
     }
     return (
-        <S.Table id="user_field" onClick={onClick}>
+       <div style={{ position: 'relative' }}>
+          <S.Table id="user_field" onClick={onClick}>
             <tbody>
                 {renderRows()}
             </tbody>
-
-        </S.Table>
+          </S.Table>
+          {squadron.length === 10 && squadron.map((s: any, i: number) => <Ship ship={s} key={s.shipname + i}/>)}
+       </div>
     )
 });
 
@@ -39,14 +41,14 @@ const Row = React.memo(({ id, cell }: { id: string, cell: any }) => (
   <tr id={id}>{cell}</tr>
 ));
 
-const Ship = React.memo(() => (
-  <S.Ship>
+const Ship = React.memo(({ ship }: any) => (
+  <S.Ship left={`${ship.y0 * 33}px`} top={`${ship.x0 * 33}px`} decks={ship.decks}>
     
   </S.Ship>
 ))
 
 const mapStateToProps = (state: IState) => ({
-  field: state.field
+  squadron: state.field.squadron
 })
 
 const mapDispatchToProps = {
