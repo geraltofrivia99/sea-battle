@@ -12,20 +12,33 @@ interface IInitField {
 }
 
 export interface IState {
-    fieldSide: any;
+    field: IField,
+    init: any
+}
+
+export interface IField {
+    fieldSide: number;
     shipSide: number | null;
-    shipsData: any;
-    field: any;
-    fieldX: any;
-    fieldY: any;
-    fieldRight: any;
-    fieldBtm: any;
+    shipsData: [
+		'',
+		[4, 'fourdeck'],
+		[3, 'tripledeck'],
+		[2, 'doubledeck'],
+		[1, 'singledeck']
+	];
+    fieldX: number,
+    fieldY: number,
+    fieldRight: number,
+    fieldBtm: number,
     squadron: Object[];
     startGame: boolean;
     matrix: any;
+    isDragging: boolean;
+    fakeShip: any;
+    draggableShipCollection: any;
 }
 
-const initState: IState = {
+const initState: IField = {
     fieldSide: 330,
     shipSide: 33,
     shipsData: [
@@ -35,18 +48,20 @@ const initState: IState = {
 		[2, 'doubledeck'],
 		[1, 'singledeck']
 	],
-    field: null,
-    fieldX: null,
-    fieldY: null,
-    fieldRight: null,
-    fieldBtm: null,
+    fieldX: 0,
+    fieldY: 0,
+    fieldRight: 0,
+    fieldBtm: 0,
     squadron: [],
     startGame: false,
     matrix: null,
+    isDragging: false,
+    fakeShip: null,
+    draggableShipCollection: [],
 };
 
 
-const initalFieldAction = (state: IState, { field }: IInitField) => ({
+const initalFieldAction = (state: IField, { field }: IInitField) => ({
     ...state,
     fieldX: field.fieldX,
     fieldY: field.fieldY,
@@ -54,15 +69,15 @@ const initalFieldAction = (state: IState, { field }: IInitField) => ({
     fieldBtm: field.fieldBtm
 });
 
-const setMatrix = (state: IState, { matrix }: any) => ({
+const setMatrix = (state: IField, { matrix }: any) => ({
     ...state,
     matrix
 });
-const addShip = (state: IState, { ship }: any) => ({
+const addShip = (state: IField, { ship }: any) => ({
     ...state,
     squadron: [...state.squadron, ship]
 })
-const setDeckInMatrix = (state: IState, { coord }: any) => {
+const setDeckInMatrix = (state: IField, { coord }: any) => {
     const { x, y } = coord;
     const newMatrix = [...state.matrix]
     newMatrix[x][y] = 1
@@ -71,9 +86,31 @@ const setDeckInMatrix = (state: IState, { coord }: any) => {
         matrix: newMatrix
     }
 }
-const addShipToSquadron = (state: IState, { ship }: any) => ({
+const addShipToSquadron = (state: IField, { ship }: any) => ({
     ...state,
     squadron: [...state.squadron, ship]
+})
+const clearField = (state: IField) => ({
+    ...state,
+    squadron: [],
+    startGame: false,
+    matrix: null,
+    isDragging: false,
+    fakeShip: null,
+})
+const setDragging = (state: IField, { isDrag }: any) => ({
+    ...state,
+    isDragging: isDrag,
+})
+
+const setFakeShip = (state: IField, { fakeShip }: any) => ({
+    ...state,
+    fakeShip,
+})
+
+const setDraggableCollection = (state: IField, { ship }: any) => ({
+    ...state,
+    
 })
 
 
@@ -82,7 +119,11 @@ const handlers = {
     [TYPES.SET_MATRIX]: setMatrix,
     [TYPES.ADD_SHIP]: addShip,
     [TYPES.SET_DECK_IN_MATRIX]: setDeckInMatrix,
-    [TYPES.ADD_SHIP_TO_SQUADRON]: addShipToSquadron
+    [TYPES.ADD_SHIP_TO_SQUADRON]: addShipToSquadron,
+    [TYPES.CLEAR_FIELD]: clearField,
+    [TYPES.IS_DRAGGING]: setDragging,
+    [TYPES.SET_FAKE_SHIP]: setFakeShip,
+    [TYPES.SET_DRAGGABLE_SHIP_COLLECTION]: setDraggableCollection
   };
   
   export const fieldReducer = createReducer(initState, handlers);

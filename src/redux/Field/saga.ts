@@ -8,8 +8,6 @@ import * as TYPES from './types';
 import * as ACTIONS from './actions';
 import { IState } from './reducer';
 
-
-
 interface IFc {
     x: number;
     y: number;
@@ -18,25 +16,46 @@ interface IFc {
     decks?: number;
     shipname?: string;
 }
+interface IField {
+	fieldX: number;
+	fieldY: number;
+	fieldRight: number;
+	fieldBtm: number;
+}
 
-const getShipData = (state: IState) => state.field.shipsData
+const getShipData = (state: IState) => ({
+	shipsData: state.field.shipsData,
+	matrix: state.field.matrix,
+	squadron: state.field.squadron
+});
+const getFieldSide = (state: IState) => (state.field.fieldSide);
 
-function* initialField() {
-    yield console.log('hello');
+
+function* initialFieldStart({ payload }: any) {
+	const { el } = payload;
+	const fieldSide = yield select(getFieldSide);
+	const fieldX = el.getBoundingClientRect().top + window.pageYOffset;
+	const fieldY = el.getBoundingClientRect().left + window.pageXOffset;
+	const field: IField = {
+		fieldX,
+		fieldY,
+		fieldRight: fieldY + fieldSide,
+		fieldBtm: fieldX + fieldSide,
+	};
+	const matrix = createMatrix();
+    yield put(ACTIONS.setMatrix(matrix));
+    yield put(ACTIONS.initialField(field));
 }
 
 function* randomLocationShip() {
-    const matrix = createMatrix();
-    yield put(ACTIONS.setMatrix(matrix));
-    const shipsData = yield select(getShipData);
+    const { shipsData, matrix } = yield select(getShipData);
     for (let i = 0, length = shipsData.length; i < length; i++) {
         const decks = shipsData[i][0];
-
         for (let j = 0; j < i; j++) {
             const fc = getCoordinatesDecks(decks, matrix);
             fc.decks = decks;
-            fc.shipname = shipsData[i][1] + String(j + 1);
-			const shipMatrix = yield call(createShip, fc)
+			fc.shipname = shipsData[i][1] + String(j + 1);
+			const shipMatrix = yield call(createShip, fc);
 			yield put(ACTIONS.addToSquadron({
 				matrix: shipMatrix,
 				hits: 0,
@@ -46,14 +65,54 @@ function* randomLocationShip() {
 				shipname: fc.shipname,
 				x0: fc.x,
 				y0: fc.y
-			}))
-        }
-    }
+			}));
+        };
+    };
+};
+
+function* addSingleShip({ payload }: any) {
+	const { ship: { decks, x, y, kx, ky } } = payload;
+	const { squadron } = yield select(getShipData);
+	const fc = {
+		shipname: getShipName(+decks, squadron.length),
+		x,
+		y,
+		kx,
+		ky,
+		decks
+	};
+	const shipMatrix = yield call(createShip, fc);
+	yield put(ACTIONS.addToSquadron({
+		matrix: shipMatrix,
+		hits: 0,
+		decks: +decks,
+		kx: fc.kx,
+		ky: fc.ky,
+		shipname: fc.shipname,
+		x0: fc.x,
+		y0: fc.y
+	}));
+}
+
+function getShipName(decks: number, length: number) {
+	switch(decks) {
+		case 4:
+			return `fourdeck${length}`;
+		case 3:
+			return `tripledeck${length}`;
+		case 2:
+			return `doubledeck${length}`;
+		case 1:
+			return `singledeck${length}`;
+		default:
+			return '';
+	}
 }
 
 export function* sagaField() {
-    yield takeLatest(TYPES.INITIAL_FIELD, initialField);
-    yield takeLatest(TYPES.RANDOM_LOC_SHIP_START, randomLocationShip);
+    yield takeLatest(TYPES.INITIAL_FIELD_START, initialFieldStart);
+	yield takeLatest(TYPES.RANDOM_LOC_SHIP_START, randomLocationShip);
+	yield takeLatest(TYPES.ADD_SINGLE_SHIP_START, addSingleShip);
 }
 
 function* createShip(fc: any) {
@@ -88,7 +147,7 @@ function getCoordinatesDecks(decks: number, matrix: any): IFc {
 	// проверяем валидность координат всех палуб корабля:
 	// нет ли в полученных координатах или соседних клетках ранее
 	// созданных кораблей
-	var result = checkLocationShip(x, y, kx, ky, decks, matrix);
+	const result = checkLocationShip(x, y, kx, ky, decks, matrix);
 	// если координаты невалидны, снова запускаем функцию
 	if (!result) return getCoordinatesDecks(decks, matrix);
  
@@ -107,7 +166,8 @@ function getRandom(n: number) {
 	return Math.floor(Math.random() * (n + 1));
 }
 
-function checkLocationShip (x: number, y: number, kx: number, ky: number, decks: number, matrix: any) {
+export function checkLocationShip (x: number, y: number, kx: number, ky: number, decks: number, matrix: any) {
+	// console.log(x, y, kx, ky, decks, matrix);
 	// зарегистрируем переменные
     let fromX: number;
     let toX: number = 0;
@@ -143,8 +203,9 @@ function checkLocationShip (x: number, y: number, kx: number, ky: number, decks:
 	// запускаем циклы и проверяем выбранный диапазон ячеек
 	// если значение текущей ячейки равно 1 (там есть палуба корабля)
 	// возвращаем false 
-	for (var i = fromX; i < toX; i++) {
-		for (var j = fromY; j < toY; j++) {
+
+	for (let i = fromX; i < toX; i++) {
+		for (let j = fromY; j < toY; j++) {
 			if (matrix[i][j] === 1) return false;
 		}
 	}
