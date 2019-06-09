@@ -59,3 +59,8 @@ export const setDraggableShipCollection = (ship: any) => ({
   type: TYPES.SET_DRAGGABLE_SHIP_COLLECTION,
   payload: { ship }
 })
+
+export const changeShipDirection = (ship: any) => ({
+  type: TYPES.CHANGE_SHIP_DIRECTION,
+  payload: { ship }
+})

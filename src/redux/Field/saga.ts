@@ -94,6 +94,10 @@ function* addSingleShip({ payload }: any) {
 	}));
 }
 
+	function* changeShipDirection({ payload }: any) {
+		yield console.log('start');
+	}
+
 function getShipName(decks: number, length: number) {
 	switch(decks) {
 		case 4:
@@ -113,6 +117,8 @@ export function* sagaField() {
     yield takeLatest(TYPES.INITIAL_FIELD_START, initialFieldStart);
 	yield takeLatest(TYPES.RANDOM_LOC_SHIP_START, randomLocationShip);
 	yield takeLatest(TYPES.ADD_SINGLE_SHIP_START, addSingleShip);
+	yield takeLatest(TYPES.CHANGE_SHIP_DIRECTION, changeShipDirection);
+	
 }
 
 function* createShip(fc: any) {
