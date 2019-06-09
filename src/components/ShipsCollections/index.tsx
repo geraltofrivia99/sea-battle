@@ -1,10 +1,10 @@
 import React, { PureComponent, createRef } from 'react';
 import { connect } from 'react-redux';
-import { setDragging, setFakeShip, addSingleShipStart } from '../../redux/Field/actions';
+import { setDragging, setFakeShip, addSingleShipStart, setDraggableShipCollection } from '../../redux/Field/actions';
 import { IState } from '../../redux/Field/reducer';
 import { checkLocationShip } from '../../redux/Field/saga';
 
-import { getCloneCoords, getCoord } from '../../utils';
+import { getCloneCoords, getCoord, IdraggbleShip, IDragableCollections } from '../../utils';
 
 import * as S from './styles';
 
@@ -23,6 +23,8 @@ interface Props {
   shipSide: number | null;
   fieldSide: number;
   matrix: any;
+  shipCollection: IDragableCollections;
+  setDraggableShipCollection: any;
 }
 
 class ShipsCollectionUnconnected extends PureComponent<Props> {
@@ -79,55 +81,91 @@ class ShipsCollectionUnconnected extends PureComponent<Props> {
     e.stopPropagation();
     e.preventDefault();
     if (e.which !== 1) return;
-    const { setDragging, setFakeShip } = this.props;
+    const { setDragging, setFakeShip, setDraggableShipCollection } = this.props;
     setDragging(true);
     const el = e.target.closest('.ship');
     if (!el) return;
     const coords = getCoord(el);
     const shiftX = e.pageX - coords.left;
     const shiftY = e.pageY - coords.top;
+    const { dataset: { decks, shipname } } = el;
+    const defaultShip = {
+      isVisible: false,
+      shipname,
+      decks,
+      isDragging: true
+    }
     const fake = {
       left: e.pageX - shiftX,
       top: e.pageY - shiftY,
-      decks: el.dataset.decks,
+      decks,
       shiftX: shiftX,
       shiftY: shiftY,
       isSuccess: false,
       kx: 0,
       ky: 1,
-      defaultCoord: {
+      defaultElement: {
         downX: e.pageX,
         downY: e.pageY,
+        ...defaultShip
       },
 
     }
+    setDraggableShipCollection({
+      [shipname]: {
+        ...defaultShip
+      }
+    })
     setFakeShip(fake);
   }
 
   onMouseUp = () => {
-    const { setDragging, fakeShip, setFakeShip, addSingleShipStart } = this.props;
+    const { setDragging, fakeShip, setFakeShip, addSingleShipStart, setDraggableShipCollection } = this.props;
+    if (!fakeShip || !fakeShip.defaultElement) return;
     setDragging(false);
-    if (!fakeShip) return;
-    const { isSuccess } = fakeShip;
+    const { isSuccess, defaultElement } = fakeShip;
+    const { shipname, decks } = defaultElement;
     if (!isSuccess) {
-
+      setDraggableShipCollection({
+        [shipname]: {
+          isVisible: true,
+          shipname,
+          decks,
+          isDragging: false
+        }
+      })
     } else {
       addSingleShipStart(fakeShip);
+      setDraggableShipCollection({
+        [shipname]: {
+          isVisible: false,
+          shipname,
+          decks,
+          isDragging: false
+        }
+      })
     }
     setFakeShip(null);
   }
 
   render() {
+    const { shipCollection } = this.props;
     return (
       <S.ShipCollection ref={this.SC}>
-        {arr.map((decks, index) =>
-          <S.ShipInCollection
-          decks={decks}
-          key={`fakedecks${index}-${decks}`}
-          className='ship'
-          data-decks={decks}
-          />
-        )}
+        {Object.values(shipCollection).map((ship: IdraggbleShip, index: number) => {
+          const { decks, shipname, isVisible, isDragging } = ship;
+          return (
+            <S.ShipInCollection
+            decks={decks}
+            key={`${ship.shipname}${index}`}
+            className='ship'
+            data-decks={decks}
+            data-shipname={shipname}
+            isVisible={isVisible}
+            isDragging={isDragging}
+            />
+          )
+        })}
       </S.ShipCollection>
     )
   }
@@ -143,12 +181,14 @@ const mapStateToProps = (state: IState) => ({
   fieldSide: state.field.fieldSide,
   shipSide: state.field.shipSide,
   matrix: state.field.matrix,
+  shipCollection: state.field.draggableShipCollection
 });
 
 const mapDispatchToProps = {
   setDragging,
   setFakeShip,
-  addSingleShipStart
+  addSingleShipStart,
+  setDraggableShipCollection
 }
 
 export const ShipsCollection = connect(mapStateToProps, mapDispatchToProps)(ShipsCollectionUnconnected);

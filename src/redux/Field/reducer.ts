@@ -1,8 +1,9 @@
 import { createReducer } from '../../utils/reducerHelper';
+import { initialDraggableShips, IDragableCollections } from '../../utils';
 import * as TYPES from './types';
 
 
-interface IInitField {
+export interface IInitField {
     field: {
         fieldX: any,
         fieldY: any,
@@ -35,7 +36,7 @@ export interface IField {
     matrix: any;
     isDragging: boolean;
     fakeShip: any;
-    draggableShipCollection: any;
+    draggableShipCollection: IDragableCollections;
 }
 
 const initState: IField = {
@@ -57,7 +58,7 @@ const initState: IField = {
     matrix: null,
     isDragging: false,
     fakeShip: null,
-    draggableShipCollection: [],
+    draggableShipCollection: initialDraggableShips,
 };
 
 
@@ -110,7 +111,10 @@ const setFakeShip = (state: IField, { fakeShip }: any) => ({
 
 const setDraggableCollection = (state: IField, { ship }: any) => ({
     ...state,
-    
+    draggableShipCollection: {
+        ...state.draggableShipCollection,
+        ...ship
+    }
 })
 
 

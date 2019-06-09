@@ -1,3 +1,5 @@
+import { number } from "prop-types";
+
 export function createMatrix() {
 	var x = 10, y = 10, arr = [];
 	for (var i = 0; i < x; i++) {
@@ -51,4 +53,87 @@ export function getCoord(el: any) {
 		top:	coords.top + window.pageYOffset,
 		bottom: coords.bottom + window.pageYOffset
 	}
+}
+
+export interface IdraggbleShip {
+  isVisible: boolean;
+  decks: number;
+  shipname: string;
+  isDragging: boolean;
+}
+
+export interface IDragableCollections {
+  fourtdeck: IdraggbleShip;
+  tripletdeck1: IdraggbleShip;
+  tripledeck2: IdraggbleShip;
+  doubledeck1: IdraggbleShip;
+  doubledeck2: IdraggbleShip;
+  doubledeck3: IdraggbleShip;
+  singledeck1: IdraggbleShip;
+  singledeck2: IdraggbleShip;
+  singledeck3: IdraggbleShip;
+  singledeck4: IdraggbleShip;
+}
+
+export const initialDraggableShips: IDragableCollections = {
+  fourtdeck: {
+    isVisible: true,
+    decks: 4,
+    shipname: 'fourtdeck',
+    isDragging: false,
+  },
+  tripletdeck1: {
+    isVisible: true,
+    decks: 3,
+    shipname: 'tripletdeck1',
+    isDragging: false
+  },
+  tripledeck2: {
+    isVisible: true,
+    decks: 3,
+    shipname: 'tripledeck2',
+    isDragging: false
+  },
+  doubledeck1: {
+    isVisible: true,
+    decks: 2,
+    shipname: 'doubledeck1',
+    isDragging: false
+  },
+  doubledeck2: {
+    isVisible: true,
+    decks: 2,
+    shipname: 'doubledeck2',
+    isDragging: false
+  },
+  doubledeck3: {
+    isVisible: true,
+    decks: 2,
+    shipname: 'doubledeck3',
+    isDragging: false
+  },
+  singledeck1: {
+    isVisible: true,
+    decks: 1,
+    shipname: 'singledeck1',
+    isDragging: false
+  },
+  singledeck2: {
+    isVisible: true,
+    decks: 1,
+    shipname: 'singledeck2',
+    isDragging: false
+  },
+  singledeck3: {
+    isVisible: true,
+    decks: 1,
+    shipname: 'singledeck3',
+    isDragging: false
+  },
+  singledeck4: {
+    isVisible: true,
+    decks: 1,
+    shipname: 'singledeck4',
+    isDragging: false
+  }
 }
