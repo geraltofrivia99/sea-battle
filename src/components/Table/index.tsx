@@ -11,31 +11,33 @@ const getSquadron = (state: IState) => state.field.squadron;
 export const Table = React.memo(() => {
   const squadron = useShallowEqualSelector(getSquadron);
   const [ onChangeDirection ] = useActions([changeShipDirection], []);
-  const onRightClick = useCallback((e) => {
-    e.preventDefault();
-    // changeShipDirection()
-    console.log('dasdsa', e)
-  }, [])
-    return (
-       <div style={{ position: 'relative' }}>
-          <S.Field id="field_user">
-            {lines.map((cur: number) => <S.HorizontalRow top={cur} key={`horizontal-${cur}`}/>)}
-            {lines.map((cur: number) => <S.VerticalRow left={cur} key={`vertical-${cur}`}/>)}
-          </S.Field>
-          {squadron && !!squadron.length && squadron.map((s: any, i: number) =>
-            <Ship ship={s} key={s.shipname + i} onContextMenu={onRightClick} />
-          )}
-       </div>
-    )
+  return (
+    <div style={{ position: 'relative' }}>
+      <S.Field id="field_user">
+        {lines.map((cur: number) => <S.HorizontalRow top={cur} key={`horizontal-${cur}`}/>)}
+        {lines.map((cur: number) => <S.VerticalRow left={cur} key={`vertical-${cur}`}/>)}
+      </S.Field>
+      {squadron && !!squadron.length && squadron.map((s: any, i: number) =>
+        <Ship ship={s} key={s.shipname + i} onContextMenu={onChangeDirection} />
+      )}
+    </div>
+  )
 });
 
-const Ship = React.memo(({ ship, onContextMenu }: any) => (
-  <S.Ship
-    left={`${ship.y0 * 33}px`}
-    top={`${ship.x0 * 33}px`}
-    decks={ship.decks}
-    isVertical={!!ship.kx}
-    data-shipname
-    onContextMenu={onContextMenu}
-  />
-));
+const Ship = React.memo(({ ship, onContextMenu }: any) => {
+  const onRightClick = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onContextMenu(ship);
+  }, [ship]);
+  return (
+    <S.Ship
+      left={`${ship.y0 * 33}px`}
+      top={`${ship.x0 * 33}px`}
+      decks={ship.decks}
+      isVertical={!!ship.kx}
+      
+      onContextMenu={onRightClick}
+    />
+  )
+});

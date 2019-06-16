@@ -31,6 +31,11 @@ export const setDeckInMatrix = (coord: any) => ({
   payload: { coord }
 })
 
+export const removeDeckFromMatrix = (coord: any) => ({
+  type: TYPES.REMOVE_DECK_FROM_MATRIX,
+  payload: { coord }
+})
+
 export const addToSquadron = (ship: any) => ({
   type: TYPES.ADD_SHIP_TO_SQUADRON,
   payload: { ship }

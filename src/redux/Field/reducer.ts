@@ -2,7 +2,6 @@ import { createReducer } from '../../utils/reducerHelper';
 import { initialDraggableShips, IDragableCollections } from '../../utils';
 import * as TYPES from './types';
 
-
 export interface IInitField {
     field: {
         fieldX: any,
@@ -87,6 +86,15 @@ const setDeckInMatrix = (state: IField, { coord }: any) => {
         matrix: newMatrix
     }
 }
+const removeDeckFromMatrix = (state: IField, { coord }: any) => {
+    const { x, y } = coord;
+    const newMatrix = [...state.matrix];
+    newMatrix[x][y] = 0;
+    return {
+        ...state,
+        matrix: newMatrix
+    }
+}
 const addShipToSquadron = (state: IField, { ship }: any) => ({
     ...state,
     squadron: [...state.squadron, ship]
@@ -123,6 +131,7 @@ const handlers = {
     [TYPES.SET_MATRIX]: setMatrix,
     [TYPES.ADD_SHIP]: addShip,
     [TYPES.SET_DECK_IN_MATRIX]: setDeckInMatrix,
+    [TYPES.REMOVE_DECK_FROM_MATRIX]: removeDeckFromMatrix, 
     [TYPES.ADD_SHIP_TO_SQUADRON]: addShipToSquadron,
     [TYPES.CLEAR_FIELD]: clearField,
     [TYPES.IS_DRAGGING]: setDragging,

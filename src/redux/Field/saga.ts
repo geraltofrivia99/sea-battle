@@ -94,9 +94,21 @@ function* addSingleShip({ payload }: any) {
 	}));
 }
 
-	function* changeShipDirection({ payload }: any) {
-		yield console.log('start');
+function* changeShipDirection({ payload }: any) {
+	const { ship } = payload;
+	yield call(cleanShip, ship);
+}
+
+function* cleanShip(ship: any) {
+	// const { matrix } = yield select(getShipData);
+	const { x0: x, y0: y, decks, kx, ky } = ship;
+	let k = 0;
+	
+	while (k < decks) {
+		yield put(ACTIONS.removeDeckFromMatrix({ x: x + k * kx, y: y + k * ky }));
+		k++;
 	}
+}
 
 function getShipName(decks: number, length: number) {
 	switch(decks) {
@@ -126,11 +138,12 @@ function* createShip(fc: any) {
 	let matrix = [];
 	while (k < fc.decks) {
 		yield put(ACTIONS.setDeckInMatrix({ x: fc.x + k * fc.kx, y: fc.y + k * fc.ky }));
-		matrix.push([fc.x + k * fc.kx, fc.y + k * fc.ky])
+		matrix.push([fc.x + k * fc.kx, fc.y + k * fc.ky]);
 		k++;
 	}
 	return matrix;
 }
+
 
 function getCoordinatesDecks(decks: number, matrix: any): IFc {
 	// получаем коэффициенты определяющие направление расположения корабля
