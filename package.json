@@ -4,21 +4,23 @@
   "private": true,
   "dependencies": {
     "@types/jest": "24.0.11",
+    "@types/lodash.throttle": "^4.1.6",
     "@types/node": "11.13.7",
     "@types/react": "16.8.14",
     "@types/react-dom": "16.8.4",
-    "@types/react-redux": "^7.0.9",
+    "@types/react-redux": "^7.1.1",
     "@types/react-router-dom": "^4.3.2",
     "@types/styled-components": "^4.1.14",
+    "lodash.throttle": "^4.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0-rc.1",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
-    "styled-components": "^4.2.0",
-    "typescript": "3.4.5"
+    "styled-components": "^4.3.2",
+    "typescript": "3.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
