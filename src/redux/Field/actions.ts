@@ -41,6 +41,11 @@ export const addToSquadron = (ship: any) => ({
   payload: { ship }
 })
 
+export const updateSquadron = (squadron: any) => ({
+  type: TYPES.UPDATE_SQUADRON,
+  payload: { squadron }
+})
+
 export const clearField = () => ({
   type: TYPES.CLEAR_FIELD
 })

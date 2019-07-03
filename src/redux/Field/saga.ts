@@ -96,7 +96,21 @@ function* addSingleShip({ payload }: any) {
 
 function* changeShipDirection({ payload }: any) {
 	const { ship } = payload;
-	yield call(cleanShip, ship);
+	const { ky, kx, x0, y0, decks } = ship;
+	const { squadron, matrix } = yield select(getShipData);
+	yield call(cleanShip, ship);	
+	const isValideLocations = yield call(checkLocationShip, x0, y0, ky, kx, decks, matrix);
+	if (isValideLocations) {
+		const newSquadron = squadron.filter((cur: IFc) => cur.shipname !== ship.shipname);
+		yield put(ACTIONS.updateSquadron(newSquadron));
+		yield put(ACTIONS.addSingleShipStart({
+			kx: ky,
+			ky: kx,
+			x: x0,
+			y: y0,
+			decks: decks
+		}))
+	}
 }
 
 function* cleanShip(ship: any) {

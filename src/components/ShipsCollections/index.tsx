@@ -135,6 +135,7 @@ class ShipsCollectionUnconnected extends PureComponent<Props> {
         }
       })
     } else {
+      console.log('add', fakeShip);
       addSingleShipStart(fakeShip);
       setDraggableShipCollection({
         [shipname]: {

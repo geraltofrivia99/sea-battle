@@ -125,6 +125,11 @@ const setDraggableCollection = (state: IField, { ship }: any) => ({
     }
 })
 
+const updateSquadron = (state: IField, { squadron }: any) => ({
+    ...state,
+    squadron,
+})
+
 
 const handlers = {
     [TYPES.INITIAL_FIELD]: initalFieldAction,
@@ -136,7 +141,8 @@ const handlers = {
     [TYPES.CLEAR_FIELD]: clearField,
     [TYPES.IS_DRAGGING]: setDragging,
     [TYPES.SET_FAKE_SHIP]: setFakeShip,
-    [TYPES.SET_DRAGGABLE_SHIP_COLLECTION]: setDraggableCollection
+    [TYPES.SET_DRAGGABLE_SHIP_COLLECTION]: setDraggableCollection,
+    [TYPES.UPDATE_SQUADRON]: updateSquadron,
   };
   
   export const fieldReducer = createReducer(initState, handlers);
