@@ -1,20 +1,25 @@
 import { createReducer } from '../../utils/reducerHelper';
 import * as TYPES from './types';
 
-interface IState {
-    name: string;
+interface IFooter {
+    footerText: string;
 }
 
-const initState: IState = {
-    name: '',
+const initState: IFooter = {
+    footerText: '',
 };
 
 
-const initalAction = (state: IState) => ({ ...state });
+const initalAction = (state: IFooter) => ({ ...state });
+const setFooterText = (state: IFooter, { text }: { text: string }) => ({
+    ...state,
+    text,
+})
 
 
 const handlers = {
     [TYPES.INITIAL]: initalAction,
+    [TYPES.SET_FOOTER_MESSAGES]: setFooterText,
   };
   
   export const initReducer = createReducer(initState, handlers);

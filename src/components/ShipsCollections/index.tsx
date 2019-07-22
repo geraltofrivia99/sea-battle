@@ -1,10 +1,10 @@
 import React, { PureComponent, createRef } from 'react';
 import { connect } from 'react-redux';
 import { setDragging, setFakeShip, addSingleShipStart, setDraggableShipCollection } from '../../redux/Field/actions';
-import { IState } from '../../redux/Field/reducer';
-import { checkLocationShip } from '../../redux/Field/saga';
+import { IState, IdraggbleShip, IDragableCollections } from '../../types';
+import { checkLocationShip } from '../../utils';
 
-import { getCloneCoords, getCoord, IdraggbleShip, IDragableCollections } from '../../utils';
+import { getCloneCoords, getCoord } from '../../utils';
 
 import * as S from './styles';
 
@@ -43,16 +43,6 @@ class ShipsCollectionUnconnected extends PureComponent<Props> {
     if(this.SC && this.SC.current) this.SC.current.removeEventListener('mousedown', this.onShipClick);
     document.removeEventListener('mouseup', this.onMouseUp);
   }
-
-  // onMouseMoveStart = (e: any) => {
-  //   const { isDragging, fakeShip } = this.props;
-  //   if (!isDragging && !fakeShip) return;
-  //   if (Math.abs(e.clientX - this.x) > 3 || Math.abs(e.clientY - this.y) > 3) {
-  //     this.onMouseMove(e);
-  //   }
-  //   this.x = e.clientX;
-  //   this.y = e.clientY;
-  // }
 
   onMouseMove = (e: any) => {
     const { isDragging, setFakeShip, fakeShip, fieldX, fieldY, fieldRight, fieldBtm, matrix } = this.props;
@@ -135,7 +125,6 @@ class ShipsCollectionUnconnected extends PureComponent<Props> {
         }
       })
     } else {
-      console.log('add', fakeShip);
       addSingleShipStart(fakeShip);
       setDraggableShipCollection({
         [shipname]: {

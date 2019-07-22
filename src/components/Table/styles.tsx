@@ -13,19 +13,6 @@ export const Table = styled.table`
   border-spacing: 1px;
 `;
 
-export const Ship = styled('div')<{top: string, left: string, decks: number, isVertical: boolean}>`
-  position: absolute;
-  top: ${({ top }) => top};
-  left: ${({ left }) => left};
-  border: 1px solid red;
-  box-sizing: border-box;
-  border-radius: 5px;
-  height: 35px;
-  width: ${({ decks }) => `${33 * decks}px`};
-  transform: ${({ isVertical }) => isVertical ? 'rotate(90deg)' : ''};
-  transform-origin: ${({ isVertical }) => isVertical ? '17.5px 17.5px' : ''};
-`;
-
 export const Field = styled.div`
   display: grid;
   grid-template-columns: repeat(10, 33px);

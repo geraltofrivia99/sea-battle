@@ -1,42 +1,8 @@
 import { createReducer } from '../../utils/reducerHelper';
-import { initialDraggableShips, IDragableCollections } from '../../utils';
+import { initialDraggableShips } from '../../utils';
+import { IField, IInitField } from '../../types';
 import * as TYPES from './types';
 
-export interface IInitField {
-    field: {
-        fieldX: any,
-        fieldY: any,
-        fieldRight: any,
-        fieldBtm: any
-    }
-}
-
-export interface IState {
-    field: IField,
-    init: any
-}
-
-export interface IField {
-    fieldSide: number;
-    shipSide: number | null;
-    shipsData: [
-		'',
-		[4, 'fourdeck'],
-		[3, 'tripledeck'],
-		[2, 'doubledeck'],
-		[1, 'singledeck']
-	];
-    fieldX: number,
-    fieldY: number,
-    fieldRight: number,
-    fieldBtm: number,
-    squadron: Object[];
-    startGame: boolean;
-    matrix: any;
-    isDragging: boolean;
-    fakeShip: any;
-    draggableShipCollection: IDragableCollections;
-}
 
 const initState: IField = {
     fieldSide: 330,
@@ -78,9 +44,9 @@ const addShip = (state: IField, { ship }: any) => ({
     squadron: [...state.squadron, ship]
 })
 const setDeckInMatrix = (state: IField, { coord }: any) => {
-    const { x, y } = coord;
+    const { x, y, iconNumber } = coord;
     const newMatrix = [...state.matrix]
-    newMatrix[x][y] = 1
+    newMatrix[x][y] = iconNumber
     return {
         ...state,
         matrix: newMatrix

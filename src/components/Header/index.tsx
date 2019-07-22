@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useActions } from '../../Hooks';
-import { randomLocationShip, clearField } from '../../redux/Field/actions';
+import { startGameWithRandomShips, clearField, randomLocationShip } from '../../redux/Field/actions';
 
 import { ShipsCollection } from '../ShipsCollections';
 
 import * as S from './styles';
 
 export const Header = React.memo(() => {
-  const [onStart, onClear] = useActions([
-    randomLocationShip, clearField
+  const [onStartWithRandomShips, onClear, onRandomLocationShip] = useActions([
+    startGameWithRandomShips, clearField, randomLocationShip
   ], []);
+  const onR = () => {
+    onRandomLocationShip('enemy');
+  }
   return (
     <S.Wrapper>
       <S.ButtonsGroup>
-        <S.Button onClick={onStart}>
+        <S.Button onClick={onStartWithRandomShips}>
           Start
+        </S.Button>
+        <S.Button onClick={onR}>
+          Start2
         </S.Button>
         <S.Button onClick={onClear}>
           Clear

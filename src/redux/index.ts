@@ -13,13 +13,15 @@ import {
 
   import { initReducer } from './Initial/reducer';
   import { fieldReducer } from './Field/reducer';
+  import { enemyfieldReducer } from './EnemyField/reducer';
   
   const sagaMiddleware = createSagaMiddleware();
   
   
   const reducer = combineReducers({
     init: initReducer,
-    field: fieldReducer
+    field: fieldReducer,
+    enemy: enemyfieldReducer,
   });
   
   const rootReducer = (state: any, action: any) => {

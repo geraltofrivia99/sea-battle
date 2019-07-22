@@ -12,8 +12,9 @@ export const initialFieldStart = (el: any) => ({
   payload: { el }
 });
 
-export const randomLocationShip = () => ({
-  type: TYPES.RANDOM_LOC_SHIP_START
+export const randomLocationShip = (field: string) => ({
+  type: TYPES.RANDOM_LOC_SHIP_START,
+  payload: { field }
 })
 
 export const setMatrix = (matrix: any) => ({
@@ -73,4 +74,8 @@ export const setDraggableShipCollection = (ship: any) => ({
 export const changeShipDirection = (ship: any) => ({
   type: TYPES.CHANGE_SHIP_DIRECTION,
   payload: { ship }
+})
+
+export const startGameWithRandomShips = (ship: any) => ({
+  type: TYPES.START_GAME_WITH_RANDOM_SHIPS,
 })
