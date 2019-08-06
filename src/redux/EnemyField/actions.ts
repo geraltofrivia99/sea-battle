@@ -61,6 +61,6 @@ export const setShootMatrixAI = (shootMatrixAI: any) => ({
 })
 
 export const setShootMatrixAround = (shootMatrixAround: any) => ({
-  type: TYPES.SET_SHOOT_MATRIX_AI,
+  type: TYPES.SET_SHOOT_MATRIX_AROUND,
   payload: { shootMatrixAround }
 })
