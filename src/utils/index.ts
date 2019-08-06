@@ -154,6 +154,10 @@ export const transformCoordinates = ({ pageY, pageX }: any, { fieldX, fieldY, sh
 	x: Math.trunc((pageY - fieldX) / shipSide),
 	y: Math.trunc((pageX - fieldY) / shipSide),
 })
+
+export function compareRandom(a: number[], b: number[]) {
+	return Math.random() - 0.5;
+}
   
 
 export const initialDraggableShips: IDragableCollections = {

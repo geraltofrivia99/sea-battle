@@ -55,6 +55,14 @@ export interface IDragableCollections {
   singledeck4: IdraggbleShip;
 }
 
+interface ITempShip {
+  totalHits: number,
+  firstHit: any,
+  nextHit: any,
+  kx: number,
+  ky: number
+}
+
 export interface IEnemyField {
   fieldSide: number;
   shipSide: number;
@@ -65,6 +73,11 @@ export interface IEnemyField {
   fieldY: number,
   fieldRight: number,
   fieldBtm: number,
+  shootMatrix: Array<Object>,
+  shootMatrixAI: Array<Object>,
+  shootMatrixAround: Array<Object>,
+  startPoints: Array<number[][]>,
+  tempShip: ITempShip,
 }
 
 export interface IFc {
