@@ -8,6 +8,7 @@ import {
   updateSquadron
 } from '../../redux/Field/actions';
 import { Ship } from '../Ship';
+import { IconElement } from '../IconElement';
 
 import { getCloneCoords, getCoord } from '../../utils';
 
@@ -17,10 +18,13 @@ import { IState, IdraggbleShip, IDragableCollections } from '../../types';
 const lines = [0, 33, 66, 99, 132, 165, 198, 231, 264, 297, 330];
 
 
-const getSquadron = (state: IState) => state.field.squadron;
+const getSquadron = (state: IState) => ({
+  squadron: state.field.squadron,
+  cells: state.field.cells
+});
 
 export const Table = React.memo(({ innerRef }: any) => {
-  const squadron = useShallowEqualSelector(getSquadron);
+  const { squadron, cells } = useShallowEqualSelector(getSquadron);
   const [
     onChangeDirection,
     setDraggingAction,
@@ -76,6 +80,8 @@ export const Table = React.memo(({ innerRef }: any) => {
     updateSquadronAction(newSquadron);
     setFakeShip(fake);
   }
+  const renderIcons = (cells: any) => cells.map((cell: any, index: number) =>
+    <IconElement cell={cell} key={`${cell.coords.x}-${cell.coords.y}-${index}`} />)
   // const {x, y} = useMousePosition();
   return (
     <div style={{ position: 'relative' }}>
@@ -86,6 +92,7 @@ export const Table = React.memo(({ innerRef }: any) => {
       {squadron && !!squadron.length && squadron.map((s: any, i: number) =>
         <Ship ship={s} key={s.shipname + i} onContextMenu={onChangeDirection} onShipDown={onShipDown}/>
       )}
+      {renderIcons(cells)}
     </div>
   )
 });

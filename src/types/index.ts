@@ -28,6 +28,7 @@ export interface IField {
   fieldRight: number,
   fieldBtm: number,
   squadron: Object[];
+  cells: Object[];
   startGame: boolean;
   matrix: any;
   isDragging: boolean;
@@ -60,7 +61,9 @@ interface ITempShip {
   firstHit: any,
   nextHit: any,
   kx: number,
-  ky: number
+  ky: number,
+  x0: number,
+  y0: number,
 }
 
 export interface IEnemyField {

@@ -158,6 +158,27 @@ export const transformCoordinates = ({ pageY, pageX }: any, { fieldX, fieldY, sh
 export function compareRandom(a: number[], b: number[]) {
 	return Math.random() - 0.5;
 }
+
+export function checkMaxDecks(squadron: any) {
+	var arr = [];
+	// перебираем массив оставшихся кораблей эскадры игрока
+	for (var i = 0, length = squadron.length; i < length; i++) {
+		// записываем в массив кол-во палуб у оставшихся кораблей
+		arr.push(squadron[i].decks);
+	}
+	// возвращаем max значение
+	return Math.max.apply(null, arr);
+}
+
+export const getEmptyTempShip = () => ({
+	totalHits: 0,
+	firstHit: {},
+	nextHit: {},
+	kx: 0,
+	ky: 0,
+	x0: 0,
+	y0: 0,
+})
   
 
 export const initialDraggableShips: IDragableCollections = {

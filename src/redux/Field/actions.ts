@@ -25,7 +25,17 @@ export const setMatrix = (matrix: any) => ({
 export const addShip = (ship: any) => ({
   type: TYPES.ADD_SHIP,
   payload: { ship }
-}) 
+})
+
+export const addElementToCell = (el: any) => ({
+  type: TYPES.ADD_ELEMENT_TO_USER_CELL,
+  payload: { el }
+})
+
+export const addElementsToCell = (elemts: any) => ({
+  type: TYPES.ADD_ELEMENTS_TO_USER_CELL,
+  payload: { elemts }
+})
 
 export const setDeckInMatrix = (coord: any) => ({
   type: TYPES.SET_DECK_IN_MATRIX,

@@ -50,6 +50,14 @@ export const updateCells = (cells: any) => ({
   payload: { cells }
 })
 
+export const enemyShoot = () => ({
+  type: TYPES.ENEMY_SHOOT,
+})
+
+export const setShootMatrixStart = () => ({
+  type: TYPES.SET_SHOOT_MATRIX_START,
+})
+
 export const setShootMatrix = (shootMatrix: any) => ({
   type: TYPES.SET_SHOOT_MATRIX,
   payload: { shootMatrix }
@@ -63,4 +71,9 @@ export const setShootMatrixAI = (shootMatrixAI: any) => ({
 export const setShootMatrixAround = (shootMatrixAround: any) => ({
   type: TYPES.SET_SHOOT_MATRIX_AROUND,
   payload: { shootMatrixAround }
+})
+
+export const updateTempShip = (tempShip: any) => ({
+  type: TYPES.UPDATE_TEMP_SHIP,
+  payload: { tempShip }
 })

@@ -1,4 +1,5 @@
 import { createReducer } from '../../utils/reducerHelper';
+import { getEmptyTempShip } from '../../utils';
 import { IField, IEnemyField, IInitField } from '../../types';
 import * as TYPES from './types';
 
@@ -19,19 +20,7 @@ const initState: IEnemyField = {
     [ [6,0], [2,0], [0,2], [0,6] ],
     [ [3,0], [7,0], [9,2], [9,6] ]
   ],
-  tempShip: {
-		// количество попаданий в корабль
-		totalHits: 0,
-		// объекты для хранения координат первого и второго попадания
-		// необходимы для вычисления положения корабля
-		firstHit: {},
-		nextHit: {},
-		// значения коэффициентов зависит от положения корабля
-		// данные значения используются для вычисления координат
-		// обстрела "раненого" корабля
-		kx: 0,
-		ky: 0
-	},
+  tempShip: getEmptyTempShip(),
 };
 
 const initialEnemyField = (state: IEnemyField, { field }: IInitField) => ({
@@ -92,6 +81,11 @@ const setShootMatrixAround = (state: IField, { shootMatrixAround }: any) => ({
   shootMatrixAround,
 })
 
+const updateTempShip = (state: IField, { tempShip }: any) => ({
+  ...state,
+  tempShip,
+})
+
 const handlers = {
   [TYPES.SET_ENEMY_MATRIX]: setEnemyMatrix,
   [TYPES.ADD_SHIP_TO_ENEMY_SQUADRON]: addShipToSquadron,
@@ -103,6 +97,7 @@ const handlers = {
   [TYPES.SET_SHOOT_MATRIX]: setShootMAtrix,
   [TYPES.SET_SHOOT_MATRIX_AI]: setShootMatrixAI,
   [TYPES.SET_SHOOT_MATRIX_AROUND]: setShootMatrixAround,
+  [TYPES.UPDATE_TEMP_SHIP]: updateTempShip,
 };
 
 export const enemyfieldReducer = createReducer(initState, handlers);

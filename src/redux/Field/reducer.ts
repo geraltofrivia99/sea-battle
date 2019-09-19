@@ -19,6 +19,7 @@ const initState: IField = {
     fieldRight: 0,
     fieldBtm: 0,
     squadron: [],
+    cells: [],
     startGame: false,
     matrix: null,
     isDragging: false,
@@ -96,6 +97,16 @@ const updateSquadron = (state: IField, { squadron }: any) => ({
     squadron,
 })
 
+const addElementToCell = (state: IField, { el }: any) => ({
+    ...state,
+    cells: [...state.cells, el]
+  })
+
+const addElementsToCell = (state: IField, { elemts }: any) => ({
+...state,
+cells: [...state.cells, ...elemts]
+})
+
 
 const handlers = {
     [TYPES.INITIAL_FIELD]: initalFieldAction,
@@ -109,6 +120,8 @@ const handlers = {
     [TYPES.SET_FAKE_SHIP]: setFakeShip,
     [TYPES.SET_DRAGGABLE_SHIP_COLLECTION]: setDraggableCollection,
     [TYPES.UPDATE_SQUADRON]: updateSquadron,
+    [TYPES.ADD_ELEMENT_TO_USER_CELL]: addElementToCell,
+    [TYPES.ADD_ELEMENTS_TO_USER_CELL]: addElementsToCell,
   };
   
   export const fieldReducer = createReducer(initState, handlers);
