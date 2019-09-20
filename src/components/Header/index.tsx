@@ -5,6 +5,8 @@ import { enemyShoot, setShootMatrixStart } from '../../redux/EnemyField/actions'
 import { startGame } from '../../redux/Initial/actions';
 import { IState } from '../../types';
 
+import { OpponentMenu } from '../Opponents';
+
 import { ShipsCollection } from '../ShipsCollections';
 
 import * as S from './styles';
@@ -36,10 +38,8 @@ export const Header = React.memo(() => {
         {/* <S.Button onClick={onClear}>
           Clear
         </S.Button> */}
-        <S.Button onClick={onEnemyShoot}>
-          EShoot
-        </S.Button>
       </S.ButtonsGroup>
+      <OpponentMenu />
       {/* <ShipsCollection /> */}
     </S.Wrapper>
   );

@@ -97,3 +97,11 @@ fieldY: number;
 fieldRight: number;
 fieldBtm: number;
 }
+
+export interface IOppList {
+	0: 'Krah an Krait',
+	1: 'Emhyr var Emreis',
+	2: 'Vernon Roche',
+	3: 'Tris Merigold',
+	4: 'Yennefer'
+}

@@ -18,3 +18,8 @@ export const shipWasSetted = () => ({
 export const startGame = () => ({
   type: TYPES.START_GAME
 })
+
+export const setOpponent = (opponent: number) => ({
+  type: TYPES.SET_OPPONENT,
+  payload: { opponent }
+})

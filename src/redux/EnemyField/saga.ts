@@ -44,6 +44,7 @@ function* testShoot({ x, y }: any) {
         coords: {x,y},
       }))
       yield put(FACTIONS.setDeckInMatrix({ x, y, iconNumber: 3 }))
+      yield put(setFooterText('AI missed'));
     break;
     case 1:
       yield put(FACTIONS.addElementToCell({
@@ -51,6 +52,7 @@ function* testShoot({ x, y }: any) {
         coords: {x,y},
       }))
       yield put(FACTIONS.setDeckInMatrix({ x, y, iconNumber: 4 }));
+      yield put(setFooterText('The AI hit your ship'));
       const { squadron } = field;
       const { tempShip } = yield select(getEnemy);
       const newTempShip = { ...tempShip };
@@ -249,22 +251,20 @@ function* shoot({ payload }: any) {
     case 0:
       yield put(ACTIONS.addElementToCell({
         icon: 'dot',
-        coords: {
-          x,
-          y
-        },
+        coords: { x,y },
       }))
-      yield put(ACTIONS.setDeckInEnemyMatrix({ x, y, iconNumber: 3 }))
+      yield put(ACTIONS.setDeckInEnemyMatrix({ x, y, iconNumber: 3 }));
+      yield put(setFooterText('You missed'));
+      yield delay(500);
+      yield put(ACTIONS.enemyShoot());
       break;
     case 1:
         yield put(ACTIONS.addElementToCell({
           icon: 'red-cross',
-          coords: {
-            x,
-            y
-          },
+          coords: { x,y },
         }))
         yield put(ACTIONS.setDeckInEnemyMatrix({ x, y, iconNumber: 4 }));
+        yield put(setFooterText('You damaged the enemy ship'));
         const { squadron } = enemy;
         for (let i = squadron.length - 1; i >= 0; i--) {
           const { matrix, decks, hits, shipname } = squadron[i];
