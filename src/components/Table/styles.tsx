@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled('div')<{isVisible: boolean}>`
+  position: relative;
+  visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'}
+`;
+
 export const Cell = styled.td`
   width: 30px;
   height: 30px;

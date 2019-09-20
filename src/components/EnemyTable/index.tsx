@@ -15,11 +15,12 @@ const lines = [0, 33, 66, 99, 132, 165, 198, 231, 264, 297, 330];
 
 const getSquadron = (state: IState) => ({
   squadron: state.enemy.squadron,
-  cells: state.enemy.cells
+  cells: state.enemy.cells,
+  isGameStarted: state.init.isGameStarted,
 });
 
 export const EnemyTable = React.memo(({ innerRef }: any) => {
-  const { squadron, cells } = useShallowEqualSelector(getSquadron);
+  const { squadron, cells, isGameStarted } = useShallowEqualSelector(getSquadron);
   const [
     onShoot,
     setShadedCell
@@ -39,7 +40,7 @@ export const EnemyTable = React.memo(({ innerRef }: any) => {
   const renderIcons = (cells: any) => cells.map((cell: any, index: number) =>
     <IconElement cell={cell} key={`${cell.coords.x}-${cell.coords.y}-${index}`} />)
   return (
-    <div style={{ position: 'relative' }} onClick={onClick} onContextMenu={onRightClick}>
+    <S.Wrapper isVisible={isGameStarted} onClick={onClick} onContextMenu={onRightClick}>
       <S.Field id="field_enemy" ref={innerRef}>
         {lines.map((cur: number) => <S.HorizontalRow top={cur} key={`horizontal-${cur}`}/>)}
         {lines.map((cur: number) => <S.VerticalRow left={cur} key={`vertical-${cur}`}/>)}
@@ -48,6 +49,6 @@ export const EnemyTable = React.memo(({ innerRef }: any) => {
         <Ship ship={s} key={s.shipname + i} />
       )}
       {renderIcons(cells)}
-    </div>
+    </S.Wrapper>
   )
 });

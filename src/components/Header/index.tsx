@@ -1,39 +1,46 @@
 import React, { useCallback } from 'react';
-import { useActions } from '../../Hooks';
+import { useActions, useShallowEqualSelector } from '../../Hooks';
 import { startGameWithRandomShips, clearField, randomLocationShip } from '../../redux/Field/actions';
 import { enemyShoot, setShootMatrixStart } from '../../redux/EnemyField/actions';
+import { startGame } from '../../redux/Initial/actions';
+import { IState } from '../../types';
 
 import { ShipsCollection } from '../ShipsCollections';
 
 import * as S from './styles';
 
+const getDeps = (state: IState) => ({
+  isShipsOnBoard: state.init.isShipsOnBoard,
+})
+
 export const Header = React.memo(() => {
-  const [onStartWithRandomShips, onClear, onRandomLocationShip, onEnemyShoot, onAIMatrixInit] = useActions([
-    startGameWithRandomShips, clearField, randomLocationShip, enemyShoot, setShootMatrixStart
+  const { isShipsOnBoard } = useShallowEqualSelector(getDeps);
+  const [onStartWithRandomShips, onClear, onRandomLocationShip, onEnemyShoot, onStart] = useActions([
+    startGameWithRandomShips, clearField, randomLocationShip, enemyShoot, startGame
   ], []);
-  const onR = () => {
-    onRandomLocationShip('enemy');
-  }
+  // const onR = () => {
+  //   onRandomLocationShip('enemy');
+  // }
   return (
     <S.Wrapper>
       <S.ButtonsGroup>
-        <S.Button onClick={onStartWithRandomShips}>
+        {!isShipsOnBoard && <S.Button onClick={onStartWithRandomShips}>
+          Arrange ships
+        </S.Button>}
+        {isShipsOnBoard && <S.Button onClick={onStart}>
           Start
-        </S.Button>
-        <S.Button onClick={onR}>
+        </S.Button>}
+        {/* <S.Button onClick={onR}>
           Start2
-        </S.Button>
-        <S.Button onClick={onClear}>
+        </S.Button> */}
+        {/* <S.Button onClick={onClear}>
           Clear
-        </S.Button>
-        <S.Button onClick={onAIMatrixInit}>
-          EInit
-        </S.Button>
+        </S.Button> */}
         <S.Button onClick={onEnemyShoot}>
           EShoot
         </S.Button>
       </S.ButtonsGroup>
-      <ShipsCollection />
+      {/* <ShipsCollection /> */}
     </S.Wrapper>
   );
 });

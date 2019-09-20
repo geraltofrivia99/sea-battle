@@ -14,8 +14,10 @@ import * as TYPES from './types';
 import {
 	addToEnemySquadron,
 	setDeckInEnemyMatrix,
-	setEnemyMatrix
+	setEnemyMatrix,
+	setShootMatrixStart
 } from '../EnemyField/actions';
+import { shipWasSetted } from '../Initial/actions';
 import * as ACTIONS from './actions';
 
 import { IState, IFieldCoord, IFc } from '../../types';
@@ -50,6 +52,8 @@ function* initialFieldStart({ payload }: any) {
 function* startGameWithRandomShips() {
 	yield put(ACTIONS.randomLocationShip('user'));
 	yield put(ACTIONS.randomLocationShip('enemy'));
+	yield put(setShootMatrixStart());
+	yield put(shipWasSetted());
 }
 
 function* randomLocationShip({ payload }: any) {

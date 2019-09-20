@@ -339,9 +339,8 @@ function checkCell(field: any, incCoords: any) {
 // TEEEESSSSSSSSSST--------------------------------------------
 function* enemyShoot() {
   const { shootMatrixAround, shootMatrixAI, shootMatrix } = yield select(getEnemy);
-  const coords = yield call(getCoordinatesShot, shootMatrixAround, shootMatrixAI, shootMatrix)
-  console.log(coords);
-  yield call(testShoot, coords)
+  const coords = yield call(getCoordinatesShot, shootMatrixAround, shootMatrixAI, shootMatrix);
+  yield call(testShoot, coords);
 }
 
 function* setShootMAtrixStart() {
