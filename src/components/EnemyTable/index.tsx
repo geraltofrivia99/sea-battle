@@ -5,8 +5,9 @@ import {
 } from '../../redux/EnemyField/actions';
 import { Ship } from '../Ship';
 import { IconElement } from '../IconElement';
+import { TableHeader } from '../TableHeader';
 
-import { getCloneCoords, getCoord } from '../../utils';
+import { getCloneCoords, getCoord, oppList } from '../../utils';
 
 import * as S from '../Table/styles';
 import { IState } from '../../types';
@@ -17,10 +18,11 @@ const getSquadron = (state: IState) => ({
   squadron: state.enemy.squadron,
   cells: state.enemy.cells,
   isGameStarted: state.init.isGameStarted,
+  opponent: state.init.opponent
 });
 
 export const EnemyTable = React.memo(({ innerRef }: any) => {
-  const { squadron, cells, isGameStarted } = useShallowEqualSelector(getSquadron);
+  const { squadron, cells, isGameStarted, opponent } = useShallowEqualSelector(getSquadron);
   const [
     onShoot,
     setShadedCell
@@ -40,15 +42,18 @@ export const EnemyTable = React.memo(({ innerRef }: any) => {
   const renderIcons = (cells: any) => cells.map((cell: any, index: number) =>
     <IconElement cell={cell} key={`${cell.coords.x}-${cell.coords.y}-${index}`} />)
   return (
-    <S.Wrapper isVisible={isGameStarted} onClick={onClick} onContextMenu={onRightClick}>
-      <S.Field id="field_enemy" ref={innerRef}>
-        {lines.map((cur: number) => <S.HorizontalRow top={cur} key={`horizontal-${cur}`}/>)}
-        {lines.map((cur: number) => <S.VerticalRow left={cur} key={`vertical-${cur}`}/>)}
-      </S.Field>
-      {squadron && !!squadron.length && squadron.map((s: any, i: number) =>
-        <Ship ship={s} key={s.shipname + i} />
-      )}
-      {renderIcons(cells)}
-    </S.Wrapper>
+    <S.Container isVisible={isGameStarted}>
+      <TableHeader name={oppList[opponent].name} isUser={false} img={oppList[opponent].img}/>
+      <S.Wrapper onClick={onClick} onContextMenu={onRightClick}>
+        <S.Field id="field_enemy" ref={innerRef}>
+          {lines.map((cur: number) => <S.HorizontalRow top={cur} key={`horizontal-${cur}`}/>)}
+          {lines.map((cur: number) => <S.VerticalRow left={cur} key={`vertical-${cur}`}/>)}
+        </S.Field>
+        {squadron && !!squadron.length && squadron.map((s: any, i: number) =>
+          <Ship ship={s} key={s.shipname + i} />
+        )}
+        {renderIcons(cells)}
+      </S.Wrapper>
+    </S.Container>
   )
 });

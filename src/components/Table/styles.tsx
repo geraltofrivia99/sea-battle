@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled('div')<{isVisible: boolean}>`
+export const Container = styled('div')<{isVisible: boolean}>`
+  display: flex;
+  flex-direction: column;
+  visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'};
+`;
+
+export const Wrapper = styled.div`
   position: relative;
-  visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'}
 `;
 
 export const Cell = styled.td`

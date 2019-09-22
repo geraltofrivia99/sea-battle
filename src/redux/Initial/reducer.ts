@@ -1,16 +1,19 @@
 import { createReducer } from '../../utils/reducerHelper';
 import * as TYPES from './types';
-import { setOpponent } from './actions';
+import { IItemMes } from '../../types';
 
 interface IFooter {
-    footerText: string;
+    footerText: IItemMes;
     isGameStarted: boolean;
     isShipsOnBoard: boolean;
     opponent: number;
 }
 
 const initState: IFooter = {
-    footerText: '',
+    footerText: {
+        isUser: true,
+        messages: ''
+    },
     isGameStarted: false,
     isShipsOnBoard: false,
     opponent: 0,
@@ -18,9 +21,9 @@ const initState: IFooter = {
 
 
 const initalAction = (state: IFooter) => ({ ...state });
-const setFooterText = (state: IFooter, { text }: { text: string }) => ({
+const setFooterText = (state: IFooter, { itemMessage }: { itemMessage: IItemMes }) => ({
     ...state,
-    text,
+    footerText: itemMessage,
 })
 const shipsWasSetted = (state: IFooter) => ({
     ...state,
@@ -32,7 +35,7 @@ const startGame = (state: IFooter) => ({
     isGameStarted: true
 })
 
-const startOpponent = (state: IFooter, { opponent }: any) => ({
+const setOpponent = (state: IFooter, { opponent }: any) => ({
     ...state,
     opponent,
 })

@@ -15,7 +15,6 @@ import { Footer } from '../../components/Footer';
 const getDeps = (state: IState) => ({
     fakeShip: state.field.fakeShip,
     isDragging: state.field.isDragging,
-    footerText: state.init.text
 })
 
 
@@ -27,7 +26,7 @@ export default () => {
     ] = useActions([
             initialFieldStart, setFakeShip, initialEnemyFieldStart
         ], []);
-    const { fakeShip, isDragging, footerText } = useShallowEqualSelector(getDeps);
+    const { fakeShip, isDragging } = useShallowEqualSelector(getDeps);
     let fakeEl = useRef(null);
     let userField = useRef(null);
     let enemyField = useRef(null);
@@ -45,7 +44,7 @@ export default () => {
                 <Table innerRef={userField}/>
                 <EnemyTable innerRef={enemyField}/>
             </S.FieldWrapper>
-            <Footer text={footerText} />
+            <Footer />
             {isDragging && fakeShip &&
                 <FakeShip
                     top={fakeShip.top}

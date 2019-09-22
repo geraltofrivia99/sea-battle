@@ -1,14 +1,14 @@
-
 import * as TYPES from './types';
+import { IItemMes } from '../../types';
 
 export const initialField = (field: any) => ({
   type: TYPES.INITIAL,
   payload: { field }
 });
 
-export const setFooterText = (text: string) => ({
+export const setFooterText = (itemMessage: IItemMes) => ({
   type: TYPES.SET_FOOTER_MESSAGES,
-  payload: { text }
+  payload: { itemMessage }
 })
 
 export const shipWasSetted = () => ({

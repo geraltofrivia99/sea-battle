@@ -44,7 +44,7 @@ function* testShoot({ x, y }: any) {
         coords: {x,y},
       }))
       yield put(FACTIONS.setDeckInMatrix({ x, y, iconNumber: 3 }))
-      yield put(setFooterText('AI missed'));
+      yield put(setFooterText({ isUser: false, messages: 'missed' }));
     break;
     case 1:
       yield put(FACTIONS.addElementToCell({
@@ -52,7 +52,7 @@ function* testShoot({ x, y }: any) {
         coords: {x,y},
       }))
       yield put(FACTIONS.setDeckInMatrix({ x, y, iconNumber: 4 }));
-      yield put(setFooterText('The AI hit your ship'));
+      yield put(setFooterText({ isUser: false, messages: 'hit you ship' }));
       const { squadron } = field;
       const { tempShip } = yield select(getEnemy);
       const newTempShip = { ...tempShip };
@@ -254,7 +254,7 @@ function* shoot({ payload }: any) {
         coords: { x,y },
       }))
       yield put(ACTIONS.setDeckInEnemyMatrix({ x, y, iconNumber: 3 }));
-      yield put(setFooterText('You missed'));
+      yield put(setFooterText({ isUser: true, messages: 'missed' }));
       yield delay(500);
       yield put(ACTIONS.enemyShoot());
       break;
@@ -264,7 +264,7 @@ function* shoot({ payload }: any) {
           coords: { x,y },
         }))
         yield put(ACTIONS.setDeckInEnemyMatrix({ x, y, iconNumber: 4 }));
-        yield put(setFooterText('You damaged the enemy ship'));
+        yield put(setFooterText({ isUser: true, messages: 'damaged the enemy ship' }));
         const { squadron } = enemy;
         for (let i = squadron.length - 1; i >= 0; i--) {
           const { matrix, decks, hits, shipname } = squadron[i];
@@ -293,9 +293,7 @@ function* shoot({ payload }: any) {
         break;
     case 3:
     case 4:
-      yield put(setFooterText('Координата уже обстреленна'));
-      yield delay(2000);
-      yield put(setFooterText(''));
+      yield put(setFooterText({ isUser: true, messages: 'the coordinate is already bombarded' }));
       break;
   }
 };

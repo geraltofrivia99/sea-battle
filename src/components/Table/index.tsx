@@ -9,8 +9,9 @@ import {
 } from '../../redux/Field/actions';
 import { Ship } from '../Ship';
 import { IconElement } from '../IconElement';
+import { TableHeader } from '../TableHeader';
 
-import { getCloneCoords, getCoord } from '../../utils';
+import { getCloneCoords, getCoord, oppList } from '../../utils';
 
 import * as S from './styles';
 import { IState, IdraggbleShip, IDragableCollections } from '../../types';
@@ -20,11 +21,12 @@ const lines = [0, 33, 66, 99, 132, 165, 198, 231, 264, 297, 330];
 
 const getSquadron = (state: IState) => ({
   squadron: state.field.squadron,
-  cells: state.field.cells
+  cells: state.field.cells,
+  opponent: state.init.opponent
 });
 
 export const Table = React.memo(({ innerRef }: any) => {
-  const { squadron, cells } = useShallowEqualSelector(getSquadron);
+  const { squadron, cells, opponent } = useShallowEqualSelector(getSquadron);
   const [
     onChangeDirection,
     setDraggingAction,
@@ -84,7 +86,9 @@ export const Table = React.memo(({ innerRef }: any) => {
     <IconElement cell={cell} key={`${cell.coords.x}-${cell.coords.y}-${index}`} />)
   // const {x, y} = useMousePosition();
   return (
-    <div style={{ position: 'relative' }}>
+    <S.Container isVisible={true}>
+    <TableHeader name={'You'} isUser={true} img={oppList[opponent].img} />
+    <S.Wrapper>
       <S.Field id="field_user" ref={innerRef}>
         {lines.map((cur: number) => <S.HorizontalRow top={cur} key={`horizontal-${cur}`}/>)}
         {lines.map((cur: number) => <S.VerticalRow left={cur} key={`vertical-${cur}`}/>)}
@@ -93,6 +97,7 @@ export const Table = React.memo(({ innerRef }: any) => {
         <Ship ship={s} key={s.shipname + i} onContextMenu={onChangeDirection} onShipDown={onShipDown}/>
       )}
       {renderIcons(cells)}
-    </div>
+    </S.Wrapper>
+    </S.Container>
   )
 });

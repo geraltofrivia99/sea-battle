@@ -1,4 +1,5 @@
-import { IDragableCollections, IFc, IEnemyField, IOppList } from '../types';
+import { IDragableCollections, IFc, IEnemyField } from '../types';
+import { krah } from '../images';
 
 export function createMatrix() {
 	var x = 10, y = 10, arr = [];
@@ -245,9 +246,24 @@ export const initialDraggableShips: IDragableCollections = {
 }
 
 export const oppList = [
-	'Krah an Krait',
-	'Emhyr var Emreis',
-	'Vernon Roche',
-	'Tris Merigold',
-	'Yennefer'
+	{
+		name: 'Krah an Krait',
+		img: krah,
+	},
+	{
+		name: 'Emhyr var Emreis',
+		img: krah,
+	},
+	{
+		name: 'Vernon Roche',
+		img: krah,
+	},
+	{
+		name: 'Tris Merigold',
+		img: krah,
+	},
+	{
+		name: 'Yennefer',
+		img: krah,
+	},
 ]
