@@ -14,6 +14,7 @@ export const StyledSelect = withStyles({
     // borderRadius: 3,
     minWidth: 100,
     border: 0,
+    
     color: 'white',
     padding: '3px 26px 3px 6px',
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',

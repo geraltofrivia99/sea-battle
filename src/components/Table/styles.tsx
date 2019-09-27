@@ -8,6 +8,22 @@ export const Container = styled('div')<{isVisible: boolean}>`
 
 export const Wrapper = styled.div`
   position: relative;
+  border-width: 5px 3px 3px 5px;
+  border-radius:95% 4% 97% 5%/4% 94% 3% 95%;
+  border: solid #596164;
+  overflow: hidden;
+  z-index: 10;
+  &::before {
+    content: "";
+    border-radius: inherit;
+		position: absolute;
+		top: -3px;
+		bottom: -3px;
+		left: -3px;
+		right: -3px;
+		box-shadow: inset 0 0 20px rgba(0,0,0,.95);
+    z-index: 100;
+  }
 `;
 
 export const Cell = styled.td`
@@ -30,6 +46,7 @@ export const Field = styled.div`
   /* border: 1px solid black; */
   /* box-sizing: border-box; */
   position: relative;
+  /* z-index: 1; */
 `;
 
 export const HorizontalRow = styled('div')<{top: number}>`

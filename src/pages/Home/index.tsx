@@ -39,6 +39,7 @@ export default () => {
       }, [fakeEl.current]);
     return (
         <S.Wrapper>
+            <S.GlobalStyle />
             <Header />
             <S.FieldWrapper>
                 <Table innerRef={userField}/>
