@@ -16,6 +16,9 @@ export const SliderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  background: rgb(2,0,36);
+  background: linear-gradient(180deg,rgba(44, 65, 85,0) 0%,rgba(44, 65, 85,0.7) 33%,rgba(44, 65, 85,1) 100%);
+  z-index: 10;
 `;
 
 export const ContentWrapepr = styled.div`
