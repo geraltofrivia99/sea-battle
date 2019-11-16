@@ -1,16 +1,49 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import Loadable from 'react-loadable';
 
-import Home from './pages/Home';
-import LoadScreen from './pages/Loading';
-import Logo from './pages/Logo';
-import Main from './pages/Main';
+const LoadableHome = Loadable({
+	loader: () => import('./pages/Home'),
+	loading() {
+		return <div>Loading...</div>
+	}
+})
+
+const LoadableMain = Loadable({
+	loader: () => import('./pages/Main'),
+	loading() {
+		return <div>Loading...</div>
+	}
+})
+
+const LoadableLoadScreen = Loadable({
+	loader: () => import('./pages/Loading'),
+	loading() {
+		return <div>Loading...</div>
+	}
+})
+
+const LoadableLogo = Loadable({
+	loader: () => import('./pages/Logo'),
+	loading() {
+		return <div>Loading...</div>
+	}
+})
+
+const LoadableGOL = Loadable({
+	loader: () => import('./pages/GOL'),
+	loading() {
+		return <div>Loading...</div>
+	}
+})
+
 
 export default () => (
     <Switch>
-        <Route exact path="/" component={Main} />
-        <Route exact path="/sea-battle" component={Home} />
-        <Route exact path="/load" component={LoadScreen}/>
-        <Route exact path="/logo" component={Logo}/>
+        <Route exact path="/" component={LoadableMain} />
+        <Route exact path="/sea-battle" component={LoadableHome} />
+        <Route exact path="/load" component={LoadableLoadScreen}/>
+        <Route exact path="/logo" component={LoadableLogo}/>
+        <Route exact path="/gol" component={LoadableGOL}/>
     </Switch>
 )
