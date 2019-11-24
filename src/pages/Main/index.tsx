@@ -2,6 +2,7 @@ import React from 'react';
 import { Slider } from '../../components/Slider';
 
 import { seaBattle } from '../../images';
+import { Card } from '../../components/Cards';
 import * as S from './styles';
 
 
@@ -38,7 +39,9 @@ export default () => {
       <S.FullImageWrapper>
         <S.FullImage src={seaBattle} />
       </S.FullImageWrapper>
-      <S.ContentWrapepr></S.ContentWrapepr>
+      <S.ContentWrapepr>
+        <Card />
+      </S.ContentWrapepr>
       <S.SliderWrapper>
         <Slider heading="Example Slider" slides={slideData}/>
       </S.SliderWrapper>

@@ -23,6 +23,11 @@ export const SliderWrapper = styled.div`
 
 export const ContentWrapepr = styled.div`
   flex: 2;
+  background-color: #1a1616;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const FullImageWrapper = styled.div`
