@@ -28,6 +28,7 @@ export const ContentWrapepr = styled.div`
   --title-line-height: 1.25;
   position: relative;
   flex: 2;
+<<<<<<< HEAD
   width: 100%;
   color: white;
   font-size: 50px;
@@ -42,6 +43,13 @@ export const ContentWrapepr = styled.div`
   text-indent: 1rem;
   white-space: nowrap;
   line-height: var(--title-line-height);
+=======
+  background-color: #1a1616;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+>>>>>>> 2a5c735f364a6ecacd4c4356a621056ea525974b
 `;
 
 export const FullImageWrapper = styled.div`

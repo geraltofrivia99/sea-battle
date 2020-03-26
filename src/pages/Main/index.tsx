@@ -2,6 +2,8 @@ import React from 'react';
 import { Slider } from '../../components/Slider';
 
 import { seaBattle, sB, cells, github } from '../../images';
+// import { seaBattle } from '../../images';
+// import { Card } from '../../components/Cards';
 import * as S from './styles';
 
 
@@ -43,6 +45,7 @@ export default () => {
           <img src={github} alt="github"/>
         </S.GH>
         Mini Games Library
+        {/* <Card /> */}
       </S.ContentWrapepr>
       <S.SliderWrapper>
         <Slider heading="Example Slider" slides={slideData}/>
