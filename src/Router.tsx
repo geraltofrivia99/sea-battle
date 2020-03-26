@@ -48,7 +48,7 @@ const LoadableSaper = Loadable({
 export default () => (
     <Switch>
         <Route exact path="/" component={LoadableMain} />
-        <Route exact path="/sea-battle" component={LoadableHome} />
+        <Route exact path="/sb" component={LoadableHome} />
         <Route exact path="/load" component={LoadableLoadScreen}/>
         <Route exact path="/logo" component={LoadableLogo}/>
         <Route exact path="/gol" component={LoadableGOL}/>

@@ -36,7 +36,7 @@ export const Slide: React.SFC<ISlide> = React.memo(({ onHandleClick, data, curre
 
   const path = () => {
     switch(data.index) {
-      case 0: return '/sea-battle';
+      case 0: return '/sb';
       case 1: return '/gol';
       default: return '/';
     }
