@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "53771fd43da9d98b391b08f12565c399",
+    "revision": "eeff32415960b9c3fa9b63bdc4761abe",
     "url": "/sea-battle/index.html"
   },
   {
-    "revision": "6b59b32de0858bcaebda",
+    "revision": "aeddc74e6efed852e6f4",
     "url": "/sea-battle/static/css/5.70926352.chunk.css"
   },
   {
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sea-battle/static/css/7.0db82ee5.chunk.css"
   },
   {
-    "revision": "9d366a6a8f97cc412e3b",
+    "revision": "37416f936fc3cf08804d",
     "url": "/sea-battle/static/css/main.2cd001db.chunk.css"
   },
   {
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sea-battle/static/js/4.453136cd.chunk.js"
   },
   {
-    "revision": "6b59b32de0858bcaebda",
-    "url": "/sea-battle/static/js/5.da925e8a.chunk.js"
+    "revision": "aeddc74e6efed852e6f4",
+    "url": "/sea-battle/static/js/5.54c17fbe.chunk.js"
   },
   {
     "revision": "7bbf7b958124c4196fb8",
@@ -60,12 +60,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sea-battle/static/js/9.42506897.chunk.js"
   },
   {
-    "revision": "9d366a6a8f97cc412e3b",
-    "url": "/sea-battle/static/js/main.4b4e9952.chunk.js"
+    "revision": "37416f936fc3cf08804d",
+    "url": "/sea-battle/static/js/main.ba3106ac.chunk.js"
   },
   {
-    "revision": "5d39bc6f94726bef8271",
-    "url": "/sea-battle/static/js/runtime~main.55711409.js"
+    "revision": "dc91b39f932b519cb77b",
+    "url": "/sea-battle/static/js/runtime~main.d8509690.js"
   },
   {
     "revision": "7e11d5a2bd5c6da418b6062760cb9e02",
