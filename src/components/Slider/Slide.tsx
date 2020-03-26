@@ -1,4 +1,7 @@
 import React, { useRef, useCallback } from 'react';
+import {
+  Link
+} from "react-router-dom";
 
 interface ISlide {
   onHandleClick: (data: any) => void,
@@ -31,6 +34,14 @@ export const Slide: React.SFC<ISlide> = React.memo(({ onHandleClick, data, curre
     onHandleClick(index);
   }
 
+  const path = () => {
+    switch(data.index) {
+      case 0: return '/sea-battle';
+      case 1: return '/gol';
+      default: return '/';
+    }
+  }
+
   const imageLoaded = (event: any) => {
     event.target.style.opacity = 1;
   }
@@ -56,7 +67,7 @@ export const Slide: React.SFC<ISlide> = React.memo(({ onHandleClick, data, curre
         
         <article className="slide__content">
           <h2 className="slide__headline">{headline}</h2>
-          <button className="slide__action btn">{button}</button>
+          <Link to={path()} className="slide__action btn">{button}</Link>
         </article>
       </li>
     )

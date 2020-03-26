@@ -37,6 +37,13 @@ const LoadableGOL = Loadable({
 	}
 })
 
+const LoadableSaper = Loadable({
+	loader: () => import('./pages/Saper'),
+	loading() {
+		return <div>Loading...</div>
+	}
+})
+
 
 export default () => (
     <Switch>
@@ -45,5 +52,6 @@ export default () => (
         <Route exact path="/load" component={LoadableLoadScreen}/>
         <Route exact path="/logo" component={LoadableLogo}/>
         <Route exact path="/gol" component={LoadableGOL}/>
+				<Route exact path="/saper" component={LoadableSaper}/>
     </Switch>
 )

@@ -1,35 +1,35 @@
 import React from 'react';
 import { Slider } from '../../components/Slider';
 
-import { seaBattle } from '../../images';
+import { seaBattle, sB, cells, github } from '../../images';
 import * as S from './styles';
 
 
 const slideData = [
   {
     index: 0,
-    headline: 'New Fashion Apparel',
-    button: 'Shop now',
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/fashion.jpg'
+    headline: 'Sea Battle',
+    button: 'Play',
+    src: sB
   },
   {
     index: 1,
-    headline: 'In The Wilderness',
-    button: 'Book travel',
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/forest.jpg'
+    headline: 'Conway GOL',
+    button: 'Play',
+    src: cells
   },
-  {
-    index: 2,
-    headline: 'For Your Current Mood',
-    button: 'Listen',
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/guitar.jpg'
-  },
-  {
-    index: 3,
-    headline: 'Focus On The Writing',
-    button: 'Get Focused',
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/typewriter.jpg'
-  }
+  // {
+  //   index: 2,
+  //   headline: 'For Your Current Mood',
+  //   button: 'Listen',
+  //   src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/guitar.jpg'
+  // },
+  // {
+  //   index: 3,
+  //   headline: 'Focus On The Writing',
+  //   button: 'Get Focused',
+  //   src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/typewriter.jpg'
+  // }
 ]
 
 export default () => {
@@ -38,7 +38,12 @@ export default () => {
       <S.FullImageWrapper>
         <S.FullImage src={seaBattle} />
       </S.FullImageWrapper>
-      <S.ContentWrapepr></S.ContentWrapepr>
+      <S.ContentWrapepr>
+        <S.GH  href="https://github.com/geraltofrivia99/sea-battle">
+          <img src={github} alt="github"/>
+        </S.GH>
+        Mini Games Library
+      </S.ContentWrapepr>
       <S.SliderWrapper>
         <Slider heading="Example Slider" slides={slideData}/>
       </S.SliderWrapper>
